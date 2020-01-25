@@ -42,10 +42,14 @@ class Form extends Component {
   }
 
   addBelanjaan(barang) {
+    if (this.state.value === '') return alert('Belanjaan tidak boleh kosong')
     let belanjaan = this.state.listBelanja
     belanjaan.push(barang)
-    this.setState({listBelanja: belanjaan})
-    console.log(this.state.listBelanja)
+    this.setState({
+      value: '',
+      listBelanja: belanjaan,
+      namaAkhir: barang
+    })
   }
 
   render() {
@@ -53,6 +57,13 @@ class Form extends Component {
       <form onSubmit={this.handleSubmit}>
         <input className="input" type="text" placeholder="Input Belanjaan Kamu" value={this.state.value} onChange={this.handleChange} />
         <input className="btnSubmit" type="submit" value="Submit" />
+        <div className="listView">
+          <ul>
+          {this.state.listBelanja.map(item => {
+            return <li>{item}</li>;
+          })}
+          </ul>
+        </div>
       </form>
     );
   }

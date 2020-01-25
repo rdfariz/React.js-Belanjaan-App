@@ -20,6 +20,9 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 .navbar .title, .footer .title {
   font-size: 18px;
@@ -29,28 +32,39 @@ code {
 .contentView {
   width: 100%;
   height: auto;
-  margin-bottom: 70px;
+  margin-bottom: 120px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 70px;
+  padding-top: 120px;
+}
+.listView {
+  display: flex;
+  max-height: 350px;
+  overflow: auto;
+  width: auto;
+  position: relative;
 }
 
 .input {
   padding: 10px 20px;
   outline: none; 
-  border: 2px solid rgb(89, 89, 219);
-  border-radius: 100px;
+  border: none;
+  border-bottom: 2px solid #f0f0f0;
   margin: 5px;
+  transition: 0.1s ease-in-out;
 }
+.input:focus {
+  border-bottom: 2px solid rgb(89, 89, 219);
+}
+
 .btnSubmit {
   padding: 10px 20px;
   outline: none; 
   border: none;
   background: rgb(89, 89, 219);
   color: #ffffff;
-  border-radius: 100px;
   margin: 5px;
   cursor: pointer;
 }
@@ -62,6 +76,6 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 }
