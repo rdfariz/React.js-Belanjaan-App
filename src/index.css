@@ -43,8 +43,21 @@ code {
   display: flex;
   max-height: 350px;
   overflow: auto;
-  width: auto;
+  width: 100%;
   position: relative;
+}
+.listItem {
+  background: #ffffff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.listItem.done {
+  background: rgb(8, 153, 117) !important;
+  color: #ffffff;
+}
+.listItem .text {
+  margin-right: 10px;
 }
 
 .input {

@@ -21,9 +21,6 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      namaAkhir: ' Insan P',
-      namaLengkap: '',
       barangInput: '',
       listBelanja: []
     };
@@ -31,40 +28,66 @@ class Form extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addBelanjaan = this.addBelanjaan.bind(this);
+    this.doneTodos = this.doneTodos.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({barangInput: event.target.value});
   }
   handleSubmit(event) {
-    this.addBelanjaan(this.state.value);
+    this.addBelanjaan(this.state.barangInput);
     event.preventDefault();
   }
 
   addBelanjaan(barang) {
-    if (this.state.value === '') return alert('Belanjaan tidak boleh kosong')
+    if (barang === '') return alert('Belanjaan tidak boleh kosong')
     let belanjaan = this.state.listBelanja
-    belanjaan.push(barang)
+    belanjaan.push({
+      namaBarang: barang,
+      done: null
+    })
     this.setState({
-      value: '',
-      listBelanja: belanjaan,
-      namaAkhir: barang
+      barangInput: '',
+      listBelanja: belanjaan
+    })
+  }
+
+  doneTodos(index) {
+    let listBelanja = this.state.listBelanja
+    listBelanja[index].done = true
+    this.setState({
+      listBelanja: listBelanja
+    })
+  }
+  delTodos(index) {
+    let listBelanja = this.state.listBelanja
+    listBelanja[index].done = false
+    this.setState({
+      listBelanja: listBelanja
     })
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input className="input" type="text" placeholder="Input Belanjaan Kamu" value={this.state.value} onChange={this.handleChange} />
-        <input className="btnSubmit" type="submit" value="Submit" />
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input className="input" maxLength="13" type="text" placeholder="Input Belanjaan Kamu" value={this.state.barangInput} onChange={this.handleChange} />
+          <input className="btnSubmit" type="submit" value="Submit" />
+        </form>
         <div className="listView">
           <ul>
-          {this.state.listBelanja.map(item => {
-            return <li>{item}</li>;
+          {this.state.listBelanja.map((item, index) => {
+            return  <li className={item.done?"listItem done":"listItem"} key={index}>
+                      <span className="text">{item.namaBarang}</span>
+                      <div>
+                        <button disabled={item.done} onClick={this.doneTodos.bind(this, index)}>Sudah</button>
+                        <button disabled={!item.done} onClick={this.delTodos.bind(this, index)}>Belum</button>
+                      </div>
+                    </li>;
           })}
           </ul>
         </div>
-      </form>
+      </div>
     );
   }
 }
